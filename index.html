@@ -76,17 +76,40 @@
         .expandable-trigger { cursor: pointer; }
         .expand-icon { display: inline-block; transition: transform 0.2s; color: #e74c3c; font-size: 0.7em; }
         .expand-icon.open { transform: rotate(90deg); }
-        .breakdown-row { display: none; background: var(--bg-deep); }
+        .breakdown-row { display: none; }
         .breakdown-row.open { display: table-row; }
-        .breakdown-inner { padding: 1rem 1.5rem; }
-        .breakdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 0.8rem; }
-        .breakdown-card { background: var(--bg-card); border-radius: 8px; padding: 0.8rem 1rem; border-left: 4px solid #e74c3c; }
-        .breakdown-card .bc-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.3rem; }
-        .breakdown-card .bc-value { font-size: 1.3rem; font-weight: bold; color: var(--text); }
-        .breakdown-card.clan { border-left-color: #3498db; }
-        .breakdown-card.alltime { border-left-color: #2ecc71; }
-        .breakdown-card.events { border-left-color: #f39c12; }
-        .breakdown-card.weekly { border-left-color: #9b59b6; }
+        .breakdown-inner { padding: 0; }
+        .inline-panel {
+            background: var(--panel-bg, #0d1117);
+            padding: 1.2rem 1.5rem;
+            border-top: 2px solid #e74c3c;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            transition: background 0.3s;
+        }
+        body.light-mode .inline-panel { --panel-bg: #f0ece8; }
+        .panel-title { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.7rem; font-weight: 600; }
+        .sp-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+        .sp-card { background: var(--bg-card); border-radius: 8px; padding: 0.7rem 0.9rem; border-left: 4px solid #e74c3c; transition: background 0.3s; }
+        .sp-card.clan    { border-left-color: #3498db; }
+        .sp-card.alltime { border-left-color: #2ecc71; }
+        .sp-card.events  { border-left-color: #f39c12; }
+        .sp-card.weekly  { border-left-color: #9b59b6; }
+        .sp-card .sc-label { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+        .sp-card .sc-value { font-size: 1.3rem; font-weight: bold; color: var(--text); line-height: 1; }
+        .sp-bar-panel { margin-top: 0.5rem; }
+        .sp-bar-panel .bar-track { height: 10px; border-radius: 5px; background: var(--bg-hover); overflow: hidden; display: flex; margin-bottom: 0.5rem; }
+        .sp-bar-panel .bar-seg { height: 100%; transition: width 0.5s ease; }
+        .bar-seg.s-clan    { background: #3498db; }
+        .bar-seg.s-alltime { background: #2ecc71; }
+        .bar-seg.s-events  { background: #f39c12; }
+        .bar-seg.s-weekly  { background: #9b59b6; }
+        .sp-legend-panel { display: flex; flex-direction: column; gap: 0.3rem; }
+        .sleg-row { display: flex; justify-content: space-between; font-size: 0.78rem; }
+        .sleg-label { display: flex; align-items: center; gap: 0.4rem; color: var(--text-muted); }
+        .sleg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .sleg-val { color: var(--text); font-weight: 600; }
         .progress-wrap { min-width: 120px; }
         .progress-bar-bg { background: var(--bg-hover); border-radius: 4px; height: 6px; margin-top: 4px; }
         .progress-bar-fill { background: #e74c3c; border-radius: 4px; height: 6px; transition: width 0.3s; }
@@ -281,14 +304,35 @@
             <td>🔥 Perfect (4/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-1">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for StarReturns</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">40.300093</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">170.859003</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">20.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">50.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">40.300093</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">170.859003</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">20.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">50.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:14.3%"></div>
+                                    <div class="bar-seg s-alltime" style="width:60.8%"></div>
+                                    <div class="bar-seg s-events"  style="width:7.1%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:17.8%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">40.300093</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">170.859003</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">20.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">50.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -310,14 +354,35 @@
             <td>🔥 Perfect (4/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-2">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for corpsekill118</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">20.365111</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">117.520132</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">20.365111</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">117.520132</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:14.8%"></div>
+                                    <div class="bar-seg s-alltime" style="width:85.2%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">20.365111</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">117.520132</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -339,14 +404,35 @@
             <td>✅ Active (3/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-3">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for LiLRuso</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">18.529948</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">116.529259</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">18.529948</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">116.529259</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:13.7%"></div>
+                                    <div class="bar-seg s-alltime" style="width:86.3%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">18.529948</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">116.529259</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -368,14 +454,35 @@
             <td>⚠️ Spotty (2/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-4">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for cathealer1</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">0.066405</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">125.803198</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">0.066405</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">125.803198</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:0.1%"></div>
+                                    <div class="bar-seg s-alltime" style="width:99.9%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">0.066405</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">125.803198</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -397,14 +504,35 @@
             <td>🔥 Perfect (4/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-5">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for Baconkillszombies</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">29.595471</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">79.10922</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">7.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">29.595471</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">79.10922</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">7.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:25.6%"></div>
+                                    <div class="bar-seg s-alltime" style="width:68.4%"></div>
+                                    <div class="bar-seg s-events"  style="width:6.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">29.595471</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">79.10922</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">7.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -426,14 +554,35 @@
             <td>❌ Inactive (0/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-6">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for Crucifix</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">2.673287</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">88.227611</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">2.673287</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">88.227611</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:2.9%"></div>
+                                    <div class="bar-seg s-alltime" style="width:97.1%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">2.673287</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">88.227611</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -455,14 +604,35 @@
             <td>✅ Active (3/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-7">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for yertap</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">4.353654</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">79.135558</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">4.353654</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">79.135558</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:5.2%"></div>
+                                    <div class="bar-seg s-alltime" style="width:94.8%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">4.353654</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">79.135558</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -484,14 +654,35 @@
             <td>🟡 At Risk (1/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-8">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for Dibbs23</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">0.018772</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">77.478244</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">0.018772</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">77.478244</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:0.0%"></div>
+                                    <div class="bar-seg s-alltime" style="width:100.0%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">0.018772</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">77.478244</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -513,14 +704,35 @@
             <td>🟡 At Risk (1/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-9">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for yourmom24</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">75.370325</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">75.370325</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:0.0%"></div>
+                                    <div class="bar-seg s-alltime" style="width:100.0%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">75.370325</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -542,14 +754,35 @@
             <td>🔥 Perfect (2/2)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-10">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for sildurianRep</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">74.082803</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">74.082803</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:0.0%"></div>
+                                    <div class="bar-seg s-alltime" style="width:100.0%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">74.082803</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -571,14 +804,35 @@
             <td>🔥 Perfect (4/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-11">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for marsbar012</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">7.033147</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">66.875218</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">7.033147</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">66.875218</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:9.5%"></div>
+                                    <div class="bar-seg s-alltime" style="width:90.5%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">7.033147</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">66.875218</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -600,14 +854,35 @@
             <td>⚠️ Spotty (2/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-12">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for ICorajeI</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">1.069625</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">70.964608</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">1.069625</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">70.964608</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:1.5%"></div>
+                                    <div class="bar-seg s-alltime" style="width:98.5%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">1.069625</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">70.964608</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -629,14 +904,35 @@
             <td>🔥 Perfect (4/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-13">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for RJRock</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">3.057299</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">63.889853</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">3.057299</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">63.889853</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:4.6%"></div>
+                                    <div class="bar-seg s-alltime" style="width:95.4%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">3.057299</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">63.889853</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -658,14 +954,35 @@
             <td>⚠️ Spotty (2/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-14">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for Jave</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">0.892442</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">42.593695</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">0.892442</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">42.593695</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:2.1%"></div>
+                                    <div class="bar-seg s-alltime" style="width:97.9%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">0.892442</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">42.593695</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -687,14 +1004,35 @@
             <td>🔥 Perfect (1/1)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-15">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for spongeguy2256</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">41.993043</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">41.993043</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:0.0%"></div>
+                                    <div class="bar-seg s-alltime" style="width:100.0%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">41.993043</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -716,14 +1054,35 @@
             <td>🔥 Perfect (2/2)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-16">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for LxnxWolf</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">40.749942</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">40.749942</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:0.0%"></div>
+                                    <div class="bar-seg s-alltime" style="width:100.0%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">40.749942</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -745,14 +1104,35 @@
             <td>🔥 Perfect (4/4)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-17">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for shadowkirasa</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">4.19278</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">32.38622</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">4.19278</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">32.38622</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:11.5%"></div>
+                                    <div class="bar-seg s-alltime" style="width:88.5%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">4.19278</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">32.38622</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -774,14 +1154,35 @@
             <td>🔥 Perfect (1/1)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-18">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for lukscorpionbr</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">27.157915</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">27.157915</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:0.0%"></div>
+                                    <div class="bar-seg s-alltime" style="width:100.0%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">27.157915</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -803,14 +1204,35 @@
             <td>🟡 At Risk (1/3)</td>
         </tr>
         <tr class="breakdown-row" id="breakdown-19">
-            <td colspan="9">
+            <td colspan="9" style="padding:0;">
                 <div class="breakdown-inner">
-                    <strong style="color:#e74c3c;">⭐ SP Breakdown for 1776isback</strong>
-                    <div class="breakdown-grid">
-                        <div class="breakdown-card clan"><div class="bc-label">🏰 Clan SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card alltime"><div class="bc-label">⏳ All Time SP</div><div class="bc-value">13.045054</div></div>
-                        <div class="breakdown-card events"><div class="bc-label">🎉 Events SP</div><div class="bc-value">0.0</div></div>
-                        <div class="breakdown-card weekly"><div class="bc-label">🏆 Weekly SP</div><div class="bc-value">0.0</div></div>
+                    <div class="inline-panel">
+                        <div>
+                            <div class="panel-title">⭐ SP Breakdown</div>
+                            <div class="sp-cards-grid">
+                                <div class="sp-card clan"><div class="sc-label">🏰 Clan SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card alltime"><div class="sc-label">⏳ All Time SP</div><div class="sc-value">13.045054</div></div>
+                                <div class="sp-card events"><div class="sc-label">🎉 Events SP</div><div class="sc-value">0.0</div></div>
+                                <div class="sp-card weekly"><div class="sc-label">🏆 Weekly LB SP</div><div class="sc-value">0.0</div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="panel-title">📊 SP Composition</div>
+                            <div class="sp-bar-panel">
+                                <div class="bar-track">
+                                    <div class="bar-seg s-clan"    style="width:0.0%"></div>
+                                    <div class="bar-seg s-alltime" style="width:100.0%"></div>
+                                    <div class="bar-seg s-events"  style="width:0.0%"></div>
+                                    <div class="bar-seg s-weekly"  style="width:0.0%"></div>
+                                </div>
+                                <div class="sp-legend-panel">
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#3498db"></span>Clan SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#2ecc71"></span>All Time SP</span><span class="sleg-val">13.045054</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#f39c12"></span>Events SP</span><span class="sleg-val">0.0</span></div>
+                                    <div class="sleg-row"><span class="sleg-label"><span class="sleg-dot" style="background:#9b59b6"></span>Weekly LB SP</span><span class="sleg-val">0.0</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
