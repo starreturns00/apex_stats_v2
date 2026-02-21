@@ -123,14 +123,23 @@
         .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem; }
         .footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border2); }
         /* ── HEATMAP ── */
-        .hm-table { width: 100%; border-collapse: collapse; table-layout: fixed; background: transparent; }
-        .hm-table thead th { font-size: 0.7rem; color: white; font-weight: 600; letter-spacing: 1px; padding: 0.3rem 4px 0.6rem; border-bottom: 1px solid var(--border); background: transparent; cursor: default; }
-        .hm-table tbody td { padding: 3px 4px; border-bottom: none; }
-        .hm-table tbody tr:hover td { background: transparent; }
-        .hm-col-name   { width: 13%; text-align: left; }
-        .hm-col-week   { width: 6%;  text-align: left; }
-        .hm-col-streak { width: 7%;  text-align: center; }
-        .hm-col-status { width: 15%; text-align: left; }
+        .hm-table { border-collapse: collapse; table-layout: auto; white-space: nowrap; }
+        .hm-table th { font-size: 0.7rem; color: white; font-weight: 600; letter-spacing: 1px; padding: 0.4rem 6px; background: #e74c3c; }
+        .hm-table td { padding: 3px 4px; border-bottom: 1px solid var(--border2); background: var(--bg-card); }
+        .hm-table tbody tr:hover td { background: var(--bg-hover); }
+        .hm-col-name { position: sticky; left: 0; z-index: 3; min-width: 140px; text-align: left; box-shadow: 2px 0 6px rgba(0,0,0,0.4); }
+        .hm-table th.hm-col-name { background: #e74c3c; }
+        .hm-table td.hm-col-name { background: var(--bg-card); font-weight: 600; font-size: 0.85rem; }
+        .hm-table tbody tr:hover td.hm-col-name { background: var(--bg-hover); }
+        .hm-col-week   { min-width: 40px; text-align: left; }
+        .hm-col-cur  { position: sticky; right: 310px; z-index: 2; width: 80px;  min-width: 80px;  max-width: 80px;  text-align: center; box-shadow: -2px 0 6px rgba(0,0,0,0.3); }
+        .hm-col-best { position: sticky; right: 155px; z-index: 2; width: 155px; min-width: 155px; max-width: 155px; text-align: center; }
+        .hm-col-stat { position: sticky; right: 0;     z-index: 2; width: 155px; min-width: 155px; max-width: 155px; text-align: left; padding-left: 8px; }
+        .hm-table th.hm-col-cur, .hm-table th.hm-col-best, .hm-table th.hm-col-stat { background: #e74c3c; }
+        .hm-table td.hm-col-cur, .hm-table td.hm-col-best, .hm-table td.hm-col-stat { background: var(--bg-card); }
+        .hm-table tbody tr:hover td.hm-col-cur,
+        .hm-table tbody tr:hover td.hm-col-best,
+        .hm-table tbody tr:hover td.hm-col-stat { background: var(--bg-hover); }
         .hm-cell {
             display: inline-flex; align-items: center; justify-content: center;
             width: 36px; height: 28px; border-radius: 5px;
@@ -1306,14 +1315,14 @@
 <th class="hm-col-week">2026-GW07</th>
 <th class="hm-col-week">2026-GW08</th>
 
-                                <th class="hm-col-streak">CURRENT</th>
-                                <th class="hm-col-streak">BEST</th>
-                                <th class="hm-col-status">STATUS</th>
+                                <th class="hm-col-cur">CURRENT</th>
+                                <th class="hm-col-best">BEST</th>
+                                <th class="hm-col-stat">STATUS</th>
                             </tr>
                         </thead>
                         <tbody>
         <tr>
-            <td class="hm-col-name"><strong>StarReturns</strong></td>
+            <td class="hm-col-name">StarReturns</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="StarReturns — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="StarReturns — 2026-GW04: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="StarReturns — 2026-GW05: Active">✓</div></td>
@@ -1321,12 +1330,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="StarReturns — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="StarReturns — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>Baconkillszombies</strong></td>
+            <td class="hm-col-name">Baconkillszombies</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="Baconkillszombies — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="Baconkillszombies — 2026-GW04: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="Baconkillszombies — 2026-GW05: Active">✓</div></td>
@@ -1334,12 +1343,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="Baconkillszombies — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="Baconkillszombies — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>marsbar012</strong></td>
+            <td class="hm-col-name">marsbar012</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="marsbar012 — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="marsbar012 — 2026-GW04: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="marsbar012 — 2026-GW05: Active">✓</div></td>
@@ -1347,12 +1356,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="marsbar012 — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="marsbar012 — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-hot">🔥 6w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>corpsekill118</strong></td>
+            <td class="hm-col-name">corpsekill118</td>
             <td class="hm-col-week"><div class="hm-cell hm-absent" title="corpsekill118 — 2026-GW03: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="corpsekill118 — 2026-GW04: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="corpsekill118 — 2026-GW05: Active">✓</div></td>
@@ -1360,12 +1369,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="corpsekill118 — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="corpsekill118 — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>RJRock</strong></td>
+            <td class="hm-col-name">RJRock</td>
             <td class="hm-col-week"><div class="hm-cell hm-absent" title="RJRock — 2026-GW03: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="RJRock — 2026-GW04: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="RJRock — 2026-GW05: Active">✓</div></td>
@@ -1373,12 +1382,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="RJRock — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="RJRock — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>shadowkirasa</strong></td>
+            <td class="hm-col-name">shadowkirasa</td>
             <td class="hm-col-week"><div class="hm-cell hm-absent" title="shadowkirasa — 2026-GW03: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="shadowkirasa — 2026-GW04: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="shadowkirasa — 2026-GW05: Active">✓</div></td>
@@ -1386,12 +1395,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="shadowkirasa — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="shadowkirasa — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-hot">🔥 4w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (4/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>LiLRuso</strong></td>
+            <td class="hm-col-name">LiLRuso</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="LiLRuso — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="LiLRuso — 2026-GW04: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="LiLRuso — 2026-GW05: Active">✓</div></td>
@@ -1399,12 +1408,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="LiLRuso — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="LiLRuso — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 3w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">✅ Active (3/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-warm">⚡ 3w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">✅ Active (3/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>yertap</strong></td>
+            <td class="hm-col-name">yertap</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="yertap — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="yertap — 2026-GW04: Missed">✗</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="yertap — 2026-GW05: Active">✓</div></td>
@@ -1412,12 +1421,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="yertap — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="yertap — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">✅ Active (3/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">✅ Active (3/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>sildurianRep</strong></td>
+            <td class="hm-col-name">sildurianRep</td>
             <td class="hm-col-week"><div class="hm-cell hm-absent" title="sildurianRep — 2026-GW03: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="sildurianRep — 2026-GW04: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="sildurianRep — 2026-GW05: Not in clan">—</div></td>
@@ -1425,12 +1434,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="sildurianRep — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="sildurianRep — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (2/2)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (2/2)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>ICorajeI</strong></td>
+            <td class="hm-col-name">ICorajeI</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="ICorajeI — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="ICorajeI — 2026-GW04: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="ICorajeI — 2026-GW05: Missed">✗</div></td>
@@ -1438,12 +1447,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="ICorajeI — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="ICorajeI — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">⚠️ Spotty (2/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">⚠️ Spotty (2/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>LxnxWolf</strong></td>
+            <td class="hm-col-name">LxnxWolf</td>
             <td class="hm-col-week"><div class="hm-cell hm-absent" title="LxnxWolf — 2026-GW03: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="LxnxWolf — 2026-GW04: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="LxnxWolf — 2026-GW05: Not in clan">—</div></td>
@@ -1451,12 +1460,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="LxnxWolf — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="LxnxWolf — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (2/2)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (2/2)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>spongeguy2256</strong></td>
+            <td class="hm-col-name">spongeguy2256</td>
             <td class="hm-col-week"><div class="hm-cell hm-absent" title="spongeguy2256 — 2026-GW03: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="spongeguy2256 — 2026-GW04: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="spongeguy2256 — 2026-GW05: Not in clan">—</div></td>
@@ -1464,12 +1473,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="spongeguy2256 — 2026-GW07: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="spongeguy2256 — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">1w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">1w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (1/1)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-cold">1w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-cold">1w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (1/1)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>lukscorpionbr</strong></td>
+            <td class="hm-col-name">lukscorpionbr</td>
             <td class="hm-col-week"><div class="hm-cell hm-absent" title="lukscorpionbr — 2026-GW03: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="lukscorpionbr — 2026-GW04: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="lukscorpionbr — 2026-GW05: Not in clan">—</div></td>
@@ -1477,12 +1486,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="lukscorpionbr — 2026-GW07: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="lukscorpionbr — 2026-GW08: Active">✓</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">1w</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">1w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (1/1)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-cold">1w</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-cold">1w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🔥 Perfect (1/1)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>cathealer1</strong></td>
+            <td class="hm-col-name">cathealer1</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="cathealer1 — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="cathealer1 — 2026-GW04: Missed">✗</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="cathealer1 — 2026-GW05: Missed">✗</div></td>
@@ -1490,12 +1499,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="cathealer1 — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="cathealer1 — 2026-GW08: Missed">✗</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">💤 0</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">⚠️ Spotty (2/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-cold">💤 0</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">⚠️ Spotty (2/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>Crucifix</strong></td>
+            <td class="hm-col-name">Crucifix</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="Crucifix — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="Crucifix — 2026-GW04: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="Crucifix — 2026-GW05: Missed">✗</div></td>
@@ -1503,12 +1512,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="Crucifix — 2026-GW07: Missed">✗</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="Crucifix — 2026-GW08: Missed">✗</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">💤 0</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">❌ Inactive (0/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-cold">💤 0</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-warm">⚡ 2w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">❌ Inactive (0/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>Dibbs23</strong></td>
+            <td class="hm-col-name">Dibbs23</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="Dibbs23 — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="Dibbs23 — 2026-GW04: Missed">✗</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="Dibbs23 — 2026-GW05: Missed">✗</div></td>
@@ -1516,12 +1525,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="Dibbs23 — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="Dibbs23 — 2026-GW08: Missed">✗</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">💤 0</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">1w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🟡 At Risk (1/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-cold">💤 0</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-cold">1w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🟡 At Risk (1/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>yourmom24</strong></td>
+            <td class="hm-col-name">yourmom24</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="yourmom24 — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="yourmom24 — 2026-GW04: Missed">✗</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="yourmom24 — 2026-GW05: Missed">✗</div></td>
@@ -1529,12 +1538,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="yourmom24 — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="yourmom24 — 2026-GW08: Missed">✗</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">💤 0</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">1w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🟡 At Risk (1/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-cold">💤 0</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-cold">1w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🟡 At Risk (1/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>Jave</strong></td>
+            <td class="hm-col-name">Jave</td>
             <td class="hm-col-week"><div class="hm-cell hm-active" title="Jave — 2026-GW03: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="Jave — 2026-GW04: Missed">✗</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-active" title="Jave — 2026-GW05: Active">✓</div></td>
@@ -1542,12 +1551,12 @@
 <td class="hm-col-week"><div class="hm-cell hm-active" title="Jave — 2026-GW07: Active">✓</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="Jave — 2026-GW08: Missed">✗</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">💤 0</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">1w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">⚠️ Spotty (2/4)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-cold">💤 0</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-cold">1w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">⚠️ Spotty (2/4)</td>
         </tr>
         <tr>
-            <td class="hm-col-name"><strong>1776isback</strong></td>
+            <td class="hm-col-name">1776isback</td>
             <td class="hm-col-week"><div class="hm-cell hm-absent" title="1776isback — 2026-GW03: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="1776isback — 2026-GW04: Not in clan">—</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-absent" title="1776isback — 2026-GW05: Not in clan">—</div></td>
@@ -1555,9 +1564,9 @@
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="1776isback — 2026-GW07: Missed">✗</div></td>
 <td class="hm-col-week"><div class="hm-cell hm-inactive" title="1776isback — 2026-GW08: Missed">✗</div></td>
 
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">💤 0</span></td>
-            <td class="hm-col-streak"><span class="hm-pill hm-pill-cold">1w</span></td>
-            <td class="hm-col-status" style="font-size:0.82rem;color:var(--text-muted)">🟡 At Risk (1/3)</td>
+            <td class="hm-col-cur"><span class="hm-pill hm-pill-cold">💤 0</span></td>
+            <td class="hm-col-best"><span class="hm-pill hm-pill-cold">1w</span></td>
+            <td class="hm-col-stat" style="font-size:0.82rem;color:var(--text-muted)">🟡 At Risk (1/3)</td>
         </tr>
                         </tbody>
                     </table>
