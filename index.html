@@ -219,22 +219,22 @@
             <div class="stat-grid">
                 <div class="stat-card">
                     <h3>Total Players</h3>
-                    <div class="value">19</div>
+                    <div class="value" id="cnt-players" data-target="19">0</div>
                     <div class="label">Active Members</div>
                 </div>
                 <div class="stat-card">
                     <h3>Activity Rate</h3>
-                    <div class="value">68%</div>
+                    <div class="value" id="cnt-activity" data-target="68" data-suffix="%">0%</div>
                     <div class="label">This week (2026-GW08)</div>
                 </div>
                 <div class="stat-card">
                     <h3>Perfect Streaks</h3>
-                    <div class="value">10</div>
+                    <div class="value" id="cnt-streaks" data-target="10">0</div>
                     <div class="label">🔥 Perfect attendance</div>
                 </div>
                 <div class="stat-card">
                     <h3>Total SP Gained</h3>
-                    <div class="value">137.5</div>
+                    <div class="value" id="cnt-sp" data-target="137.5" data-suffix=" SP">0 SP</div>
                     <div class="label">Combined this week</div>
                 </div>
             </div>
@@ -1936,6 +1936,36 @@
                 document.getElementById('simPctWeekly').textContent  = p(simLoaded.cum_sp_weekly) + '%';
             }
         }
+
+        // ── Animated Counters ──
+        function animateCounter(el, duration) {
+            const target   = parseFloat(el.dataset.target) || 0;
+            const suffix   = el.dataset.suffix || '';
+            const decimals = Number.isInteger(target) ? 0 : 1;
+            const start    = performance.now();
+            function tick(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                const ease     = 1 - Math.pow(1 - progress, 3);
+                const val      = target * ease;
+                el.textContent = (decimals ? val.toFixed(decimals) : Math.round(val)) + suffix;
+                if (progress < 1) requestAnimationFrame(tick);
+                else el.textContent = (decimals ? target.toFixed(decimals) : target) + suffix;
+            }
+            requestAnimationFrame(tick);
+        }
+        function runCounters() {
+            ['cnt-players','cnt-activity','cnt-streaks','cnt-sp'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) animateCounter(el, 1200);
+            });
+        }
+        // Run on page load and when switching to home tab
+        window.addEventListener('load', () => setTimeout(runCounters, 200));
+        const _origShowPage = showPage;
+        showPage = function(page, evt) {
+            _origShowPage(page, evt);
+            if (page === 'home') setTimeout(runCounters, 100);
+        };
 
         function toggleTheme() {
             const body = document.body;
