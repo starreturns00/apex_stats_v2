@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A P E X Clan Stats - 2026-GW08</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -281,8 +280,8 @@
         <button onclick="showPage('activity', event)">🔥 Activity</button>
         <button onclick="showPage('charts', event)">📈 Charts</button>
         <button onclick="showPage('stories', event)">📖 Stories</button>
-        <button onclick="showPage('events', event)">🎉 Events</button>
         <button onclick="showPage('simulator', event)">⭐ Simulator</button>
+        <button onclick="showPage('events', event)">🎉 Events</button>
     </div>
     <div class="container">
 
@@ -1694,50 +1693,11 @@
 
         <!-- EVENTS -->
         <div id="events" class="page">
-            <div class="stat-grid">
-                <div class="stat-card">
-                    <h3>Total Events</h3>
-                    <div class="value" style="color:#74b9ff">5</div>
-                    <div class="label">🎉 All time</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Total SP Awarded</h3>
-                    <div class="value" style="color:#ffd700">72.0</div>
-                    <div class="label">⭐ Across all events</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Total Cash Awarded</h3>
-                    <div class="value" style="color:#2ecc71">32,000,000</div>
-                    <div class="label">💰 Across all events</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Total Credits Awarded</h3>
-                    <div class="value" style="color:#e74c3c">0</div>
-                    <div class="label">💎 Across all events</div>
-                </div>
-            </div>
             <div class="section">
                 <h2>🔴 Ongoing Events</h2>
                 <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.5rem">Active competitions and challenges</p>
                 <div class="tl-container">
-    <div class="tl-item">
-        <div class="tl-dottl-dot-live"></div>
-        <div class="tl-card" onclick="toggleTL('tl-exp-on0','tl-chev-on0')">
-            <div class="tl-header">
-                <img class="tl-img" src="https://via.placeholder.com/80x80/e74c3c/ffffff?text=EVENT" alt="Looting Run" onerror="this.src='https://via.placeholder.com/80x80/e74c3c/ffffff?text=EVENT'">
-                <div class="tl-info">
-                    <div class="tl-title">Looting Run</div>
-                    <div class="tl-meta"><span class="ev-badge ev-badge-week">2026-GW09 · 2026-03-02</span> <span class="ev-badge ev-badge-type">Looting Event</span> <span class="ev-badge ev-badge-ongoing"><span class="ev-pulse"></span>Live Now</span></div>
-                    <div class="tl-desc">4000 Loots - 20 SP, 2000 Loots - 10 SP, 1000 Loots - 5 SP</div>
-                </div>
-                <div class="tl-chevron" id="tl-chev-on0">▼</div>
-            </div>
-            <div class="tl-expand" id="tl-exp-on0">
-                <div class="tl-full-desc">4000 Loots - 20 SP, 2000 Loots - 10 SP, 1000 Loots - 5 SP</div>
-        <p class="ev-no-results">Results will be posted when the event ends.</p>
-            </div>
-        </div>
-    </div>
+    <p class="ev-empty">No ongoing events right now. Check back soon!</p>
                 </div>
             </div>
             <div class="section">
@@ -2342,7 +2302,7 @@
             });
         }
         // Run on page load and when switching to home tab
-        window.addEventListener('DOMContentLoaded', () => setTimeout(runCounters, 100));
+        window.addEventListener('load', () => setTimeout(runCounters, 200));
         const _origShowPage = showPage;
         showPage = function(page, evt) {
             _origShowPage(page, evt);
@@ -2376,5 +2336,6 @@
             document.getElementById('themeToggle').textContent = '🌙 Dark';
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
