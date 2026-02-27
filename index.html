@@ -500,7 +500,8 @@
         .mab .msh1 { width:28%; animation:mshine 3.5s ease-in-out infinite; }
         .mab .mi { font-size:13px; line-height:1; position:relative; z-index:4; }
         .mab .ml { font-family:'Black Ops One',cursive; font-size:7px; letter-spacing:0.5px; line-height:1; position:relative; z-index:4; }
-        .ml-count { font-family:'Share Tech Mono',monospace; font-size:6px; color:inherit; opacity:0.85; position:relative; z-index:4; line-height:1; }
+        .mab-wrap { display:inline-flex; flex-direction:column; align-items:center; gap:2px; cursor:default; }
+        .mab-count { font-family:'Share Tech Mono',monospace; font-size:8px; color:var(--text-muted); line-height:1; }
         /* TS — silver */
         .mab-silver { border-color:#b0b8c8; background:radial-gradient(circle at 40% 32%,#5a6070,#1a1e24 70%); color:#d0d8e8;
             box-shadow:inset 0 1px 4px rgba(180,200,220,0.15),inset 0 -2px 6px rgba(0,0,0,0.6),0 2px 6px rgba(0,0,0,0.5); }
@@ -687,7 +688,7 @@
         <tr class="rank-1" class="expandable-trigger" onclick="toggleBreakdown('breakdown-1', 'icon-breakdown-1')">
             <td><span class="expand-icon" id="icon-breakdown-1">▶</span> 1</td>
             <td><strong>StarReturns</strong></td>
-            <td class="moh-col"><div class="moh-wrap"><span class="mab mab-gold" title="TL — Gold · 1 week"><span class="msh msh1"></span><span class="mi">📦</span><span class="ml">TL</span><span class="ml-count">×1</span></span><span class="mab mab-platinum" title="GL — Platinum · 1 week"><span class="msh msh1"></span><span class="msh msh2"></span><span class="msh msh3"></span><span class="mi">🌍</span><span class="ml">GL</span><span class="ml-count">×1</span></span><span class="mev" title="Event Winner — 1 win"><span class="mev-sh"></span><span class="mev-icon">🏆</span><span class="mev-div"></span><span class="mev-num">1</span></span></div></td>
+            <td class="moh-col"><div class="moh-wrap"><span class="mab-wrap" title="TL — Gold · 1 time"><span class="mab mab-gold"><span class="msh msh1"></span><span class="mi">📦</span><span class="ml">TL</span></span></span><span class="mab-wrap" title="GL — Platinum · 1 time"><span class="mab mab-platinum"><span class="msh msh1"></span><span class="msh msh2"></span><span class="msh msh3"></span><span class="mi">🌍</span><span class="ml">GL</span></span></span><span class="mev" title="Event Winner — 1 win"><span class="mev-sh"></span><span class="mev-icon">🏆</span><span class="mev-div"></span><span class="mev-num">1</span></span></div></td>
             <td>415</td>
             <td><span class="badge badge-alpha-prowler">Alpha Prowler</span></td>
             <td>287.5</td>
@@ -738,7 +739,7 @@
         <tr class="rank-2" class="expandable-trigger" onclick="toggleBreakdown('breakdown-2', 'icon-breakdown-2')">
             <td><span class="expand-icon" id="icon-breakdown-2">▶</span> 2</td>
             <td><strong>corpsekill118</strong></td>
-            <td class="moh-col"><div class="moh-wrap"><span class="mab mab-bronze" title="TS — Bronze · 2 weeks"><span class="msh msh1"></span><span class="mi">⚔️</span><span class="ml">TS</span><span class="ml-count">×2</span></span></div></td>
+            <td class="moh-col"><div class="moh-wrap"><span class="mab-wrap" title="TS — Bronze · 2 times"><span class="mab mab-bronze"><span class="msh msh1"></span><span class="mi">⚔️</span><span class="ml">TS</span></span><span class="mab-count">×2</span></span></div></td>
             <td>401</td>
             <td><span class="badge badge-prowler">Prowler</span></td>
             <td>163.4</td>
@@ -789,7 +790,7 @@
         <tr class="rank-3" class="expandable-trigger" onclick="toggleBreakdown('breakdown-3', 'icon-breakdown-3')">
             <td><span class="expand-icon" id="icon-breakdown-3">▶</span> 3</td>
             <td><strong>Baconkillszombies</strong></td>
-            <td class="moh-col"><div class="moh-wrap"><span class="mab mab-bronze" title="TS — Bronze · 2 weeks"><span class="msh msh1"></span><span class="mi">⚔️</span><span class="ml">TS</span><span class="ml-count">×2</span></span><span class="mev" title="Event Winner — 1 win"><span class="mev-sh"></span><span class="mev-icon">🏆</span><span class="mev-div"></span><span class="mev-num">1</span></span></div></td>
+            <td class="moh-col"><div class="moh-wrap"><span class="mab-wrap" title="TS — Bronze · 2 times"><span class="mab mab-bronze"><span class="msh msh1"></span><span class="mi">⚔️</span><span class="ml">TS</span></span><span class="mab-count">×2</span></span><span class="mev" title="Event Winner — 1 win"><span class="mev-sh"></span><span class="mev-icon">🏆</span><span class="mev-div"></span><span class="mev-num">1</span></span></div></td>
             <td>315</td>
             <td><span class="badge badge-prowler">Prowler</span></td>
             <td>152.8</td>
