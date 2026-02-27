@@ -327,6 +327,12 @@
         .top-performers li { padding: 1rem; background: var(--bg-deep); margin-bottom: 0.5rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); transition: border-color 0.2s; }
         .top-performers li:hover { border-color: #e74c3c; }
         .top-performers .medal { font-size: 1.5rem; margin-right: 1rem; }
+        .top-performers li.tp-gold   { background: rgba(184,148,20,0.12); border-color: rgba(184,148,20,0.35); }
+        .top-performers li.tp-silver { background: rgba(160,160,160,0.10); border-color: rgba(160,160,160,0.30); }
+        .top-performers li.tp-bronze { background: rgba(155,95,40,0.12);  border-color: rgba(155,95,40,0.30); }
+        .top-performers li.tp-gold:hover   { border-color: rgba(184,148,20,0.65); }
+        .top-performers li.tp-silver:hover { border-color: rgba(160,160,160,0.55); }
+        .top-performers li.tp-bronze:hover { border-color: rgba(155,95,40,0.55); }
         .promotion-list { list-style: none; padding: 0; }
         .promotion-list li { padding: 1rem; background: var(--bg-deep); margin-bottom: 0.5rem; border-radius: 8px; border-left: 4px solid #e74c3c; color: var(--text); }
         .chart-container { position: relative; height: 400px; margin-bottom: 2rem; }
@@ -644,37 +650,37 @@
             <div class="stat-grid">
                 <div class="stat-card">
                     <h3>Total Players</h3>
-                    <div class="value" id="cnt-players" data-target="19">0</div>
+                    <div class="value" id="cnt-players" data-target="19" style="color:#2ecc71;text-shadow:0 0 20px rgba(46,204,113,0.5);">0</div>
                     <div class="label">Active Members</div>
                 </div>
                 <div class="stat-card">
-                    <h3>Activity Rate</h3>
-                    <div class="value" id="cnt-activity" data-target="60" data-suffix="%">0%</div>
-                    <div class="label">This week (2026-GW09)</div>
-                </div>
-                <div class="stat-card">
                     <h3>Perfect Streaks</h3>
-                    <div class="value" id="cnt-streaks" data-target="10">0</div>
+                    <div class="value" id="cnt-streaks" data-target="10" style="color:#74b9ff;text-shadow:0 0 20px rgba(116,185,255,0.5);">0</div>
                     <div class="label">🔥 Perfect attendance</div>
                 </div>
                 <div class="stat-card">
+                    <h3>Activity Rate</h3>
+                    <div class="value" id="cnt-activity" data-target="60" data-suffix="%" style="color:#ffd700;text-shadow:0 0 20px rgba(255,215,0,0.5);">0%</div>
+                    <div class="label">This week (2026-GW09)</div>
+                </div>
+                <div class="stat-card">
                     <h3>Total SP Gained</h3>
-                    <div class="value" id="cnt-sp" data-target="190.8" data-suffix=" SP">0 SP</div>
+                    <div class="value" id="cnt-sp" data-target="190.8" data-suffix=" SP" style="color:#e74c3c;text-shadow:0 0 20px rgba(231,76,60,0.5);">0 SP</div>
                     <div class="label">Combined this week</div>
                 </div>
             </div>
             <div class="section">
                 <h2>🏆 Top Performers This Week</h2>
                 <ul class="top-performers">
-                    <li class="rank-1">
+                    <li class="rank-1 tp-gold">
                         <div><span class="medal">🥇</span> <strong>shadowkirasa</strong></div>
                         <div><strong>+32.4 SP</strong> → 69.1 SP Total</div>
                     </li>
-                    <li class="rank-2">
+                    <li class="rank-2 tp-silver">
                         <div><span class="medal">🥈</span> <strong>LxnxWolf</strong></div>
                         <div><strong>+26.6 SP</strong> → 73.5 SP Total</div>
                     </li>
-                    <li class="rank-3">
+                    <li class="rank-3 tp-bronze">
                         <div><span class="medal">🥉</span> <strong>lukscorpionbr</strong></div>
                         <div><strong>+21.9 SP</strong> → 53.2 SP Total</div>
                     </li>
