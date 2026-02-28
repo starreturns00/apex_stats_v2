@@ -3077,12 +3077,16 @@
 
         function toggleMore(e) {
             e.stopPropagation();
-            document.getElementById('moreDropdown').classList.toggle('open');
+            const dd = document.getElementById('moreDropdown');
+            const isOpen = dd.classList.contains('open');
+            dd.classList.toggle('open', !isOpen);
         }
 
-        document.addEventListener('click', function(e) {
+        window.addEventListener('click', function(e) {
             const dd = document.getElementById('moreDropdown');
-            if (dd && !dd.contains(e.target)) dd.classList.remove('open');
+            if (dd && !dd.contains(e.target)) {
+                dd.classList.remove('open');
+            }
         });
 
         function showPage(pageId, event) {
