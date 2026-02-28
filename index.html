@@ -2862,7 +2862,15 @@
                 .arm-tag.grinding { color:#e9a44a; border-color:#7b4f1e; }
                 .arm-tag.pvp      { color:#e56b6f; border-color:#6b1e22; }
                 .arm-tag.cc       { color:#b8a0cc; border-color:#5a3d6e; }
-                .arm-rank { color:#e9a44a; font-weight:700; }
+                .arm-rank { font-weight:700; font-size:12px; padding:2px 8px; border:1px solid; display:inline-block; letter-spacing:0.5px; }
+                .arm-rank.rk-primal        { background:rgba(100,200,100,0.15); color:#55efc4; border-color:rgba(100,200,100,0.3); }
+                .arm-rank.rk-alpha-primal  { background:rgba(0,100,0,0.4);      color:#90ee90; border-color:#006400; }
+                .arm-rank.rk-prowler       { background:rgba(100,160,255,0.15); color:#74b9ff; border-color:rgba(100,160,255,0.3); }
+                .arm-rank.rk-alpha-prowler { background:rgba(0,0,139,0.4);      color:#add8e6; border-color:#00008b; }
+                .arm-rank.rk-predator      { background:rgba(255,100,100,0.15); color:#ff8080; border-color:rgba(255,100,100,0.3); }
+                .arm-rank.rk-alpha-predator{ background:rgba(139,0,0,0.4);      color:#ffb3b3; border-color:#8b0000; }
+                .arm-rank.rk-alpha-king    { background:rgba(147,112,219,0.2);  color:#a29bfe; border-color:rgba(147,112,219,0.4); }
+                .arm-rank.rk-other         { background:rgba(150,150,150,0.1);  color:#b2bec3; border-color:rgba(150,150,150,0.3); }
                 .arm-borrower { color:#e56b6f; font-weight:700; display:block; }
                 .arm-due { color:var(--muted); font-size:12px; font-family:'Share Tech Mono',monospace; }
             </style>
@@ -2904,13 +2912,13 @@
                     <div style="overflow-x:auto;">
                         <table style="width:100%;border-collapse:collapse;">
                             <thead>
-                                <tr style="border-top:1px solid rgba(192,57,43,0.4);border-bottom:1px solid rgba(192,57,43,0.4);background:var(--bg-deep);">
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:center;width:90px;white-space:nowrap;">Image</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Name</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Status</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Best For</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Min Rank</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Borrowed By</th>
+                                <tr style="border-top:1px solid rgba(192,57,43,0.4);border-bottom:1px solid rgba(192,57,43,0.4);background:rgba(192,57,43,0.25);">
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:center;width:90px;white-space:nowrap;">Image</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Name</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Status</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Best For</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Min Rank</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Borrowed By</th>
                                 </tr>
                             </thead>
                             <tbody id="arm-body-weapons">
@@ -2948,13 +2956,13 @@
                     <div style="overflow-x:auto;">
                         <table style="width:100%;border-collapse:collapse;">
                             <thead>
-                                <tr style="border-top:1px solid rgba(192,57,43,0.4);border-bottom:1px solid rgba(192,57,43,0.4);background:var(--bg-deep);">
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:center;width:90px;white-space:nowrap;">Image</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Name</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Status</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Best For</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Min Rank</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Borrowed By</th>
+                                <tr style="border-top:1px solid rgba(192,57,43,0.4);border-bottom:1px solid rgba(192,57,43,0.4);background:rgba(192,57,43,0.25);">
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:center;width:90px;white-space:nowrap;">Image</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Name</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Status</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Best For</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Min Rank</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Borrowed By</th>
                                 </tr>
                             </thead>
                             <tbody id="arm-body-armor">
@@ -2992,13 +3000,13 @@
                     <div style="overflow-x:auto;">
                         <table style="width:100%;border-collapse:collapse;">
                             <thead>
-                                <tr style="border-top:1px solid rgba(192,57,43,0.4);border-bottom:1px solid rgba(192,57,43,0.4);background:var(--bg-deep);">
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:center;width:90px;white-space:nowrap;">Image</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Name</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Status</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Best For</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Min Rank</th>
-                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--blood-bright);text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Borrowed By</th>
+                                <tr style="border-top:1px solid rgba(192,57,43,0.4);border-bottom:1px solid rgba(192,57,43,0.4);background:rgba(192,57,43,0.25);">
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:center;width:90px;white-space:nowrap;">Image</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Name</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Status</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Best For</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Min Rank</th>
+                                    <th style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#f0e6d3;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;">Borrowed By</th>
                                 </tr>
                             </thead>
                             <tbody id="arm-body-implants">
@@ -3429,6 +3437,17 @@
             ranks.forEach(r => { const o=document.createElement('option'); o.value=r; o.textContent=r; sel.appendChild(o); });
         }
 
+        function getRankClass(rank) {
+            const r = (rank||'').toLowerCase();
+            if (r.includes('alpha predator')) return 'rk-alpha-predator';
+            if (r.includes('predator'))       return 'rk-predator';
+            if (r.includes('alpha prowler'))  return 'rk-alpha-prowler';
+            if (r.includes('prowler'))        return 'rk-prowler';
+            if (r.includes('alpha primal'))   return 'rk-alpha-primal';
+            if (r.includes('primal'))         return 'rk-primal';
+            if (r.includes('alpha king'))     return 'rk-alpha-king';
+            return 'rk-other';
+        }
         function renderArmory(sec, sf='', uf='', rf='') {
             const pfx = armoryPfx[sec];
             let html='', count=0;
@@ -3454,7 +3473,7 @@
                     <td class="arm-td"><span class="arm-name">${item.name}</span></td>
                     <td class="arm-td"><span class="arm-badge ${item.status}">${item.status==='available'?'Available':'Borrowed'}</span></td>
                     <td class="arm-td"><div class="arm-tags">${tagsHtml}</div></td>
-                    <td class="arm-td"><span class="arm-rank">${item.rank||'—'}</span></td>
+                    <td class="arm-td">${item.rank ? `<span class="arm-rank ${getRankClass(item.rank)}">${item.rank}</span>` : '—'}</td>
                     <td class="arm-td">${borHtml}</td>
                 </tr>`;
             }
