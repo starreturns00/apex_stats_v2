@@ -165,7 +165,8 @@
             background: #0f0f0f; border: 1px solid rgba(192,57,43,0.3);
             border-top: 2px solid var(--blood-bright); min-width: 180px; z-index: 999;
         }
-        .nav-dropdown.open .nav-dropdown-menu { display: block; }
+        .nav-dropdown:focus-within .nav-dropdown-menu { display: block; }
+        .nav-dropdown:focus-within .nav-dropdown-btn { color: var(--text); }
         .nav-dropdown-menu button {
             display: flex; align-items: center; gap: 8px; width: 100%;
             padding: 11px 18px; font-family: 'Rajdhani', sans-serif; font-weight: 700;
@@ -670,7 +671,7 @@
                 <button onclick="showPage('medals', event)">🎖️ Medals of Honor</button>
                 <button onclick="showPage('armory', event)">⚔️ Armory</button>
                 <div class="nav-dropdown" id="moreDropdown">
-                    <button class="nav-dropdown-btn" id="moreBtn" onclick="toggleMore(event)">More ▾</button>
+                    <button class="nav-dropdown-btn" id="moreBtn" tabindex="0">More ▾</button>
                     <div class="nav-dropdown-menu" id="moreMenu">
                         <button onclick="showPage('charts', event)">📈 Charts</button>
                         <button onclick="showPage('stories', event)">📖 Stories</button>
@@ -3075,22 +3076,7 @@
 
         const _morePages = ['charts','stories','simulator'];
 
-        function toggleMore(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            const dd = document.getElementById('moreDropdown');
-            dd.classList.toggle('open');
-            if (dd.classList.contains('open')) {
-                setTimeout(function() {
-                    window.addEventListener('click', function closeMore(ev) {
-                        if (!dd.contains(ev.target)) {
-                            dd.classList.remove('open');
-                            window.removeEventListener('click', closeMore);
-                        }
-                    });
-                }, 10);
-            }
-        }
+
 
         function showPage(pageId, event) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
