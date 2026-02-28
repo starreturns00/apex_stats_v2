@@ -145,39 +145,7 @@
             border-top-color: rgba(192,57,43,0.2);
             border-bottom-color: rgba(192,57,43,0.2);
         }
-        .nav-inner { display: flex; justify-content: center; align-items: stretch; max-width: 1100px; margin: 0 auto; flex-wrap: nowrap; }
-        .nav-dropdown { position: relative; display: flex; align-items: stretch; }
-        .nav-dropdown-btn { position: relative; display: flex; align-items: center; gap: 7px;
-            padding: 14px 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700;
-            font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;
-            color: var(--muted); background: none; border: none;
-            cursor: pointer; transition: color 0.2s; white-space: nowrap; }
-        .nav-dropdown-btn::after { content: ' ▾'; font-size: 10px; opacity: 0.6; }
-        .nav-dropdown:hover .nav-dropdown-btn { color: var(--text); }
-        .nav-dropdown-btn.has-active { color: var(--text); }
-        .nav-dropdown-btn.has-active::before {
-            content: ''; position: absolute;
-            bottom: 0; left: 0; right: 0; height: 2px;
-            background: var(--blood-bright); box-shadow: 0 0 8px var(--blood-bright);
-        }
-        .nav-dropdown-menu {
-            display: none; position: absolute; top: 100%; right: 0;
-            background: #0f0f0f; border: 1px solid rgba(192,57,43,0.3);
-            border-top: 2px solid var(--blood-bright);
-            min-width: 180px; z-index: 999;
-        }
-        .nav-dropdown:hover .nav-dropdown-menu { display: block; }
-        .nav-dropdown-menu button {
-            display: flex; align-items: center; gap: 8px;
-            width: 100%; padding: 11px 18px;
-            font-family: 'Rajdhani', sans-serif; font-weight: 700;
-            font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
-            color: var(--muted); background: none; border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            cursor: pointer; transition: all 0.15s; text-align: left; white-space: nowrap;
-        }
-        .nav-dropdown-menu button:hover { color: var(--text); background: rgba(192,57,43,0.08); padding-left: 24px; }
-        .nav-dropdown-menu button.active { color: var(--blood-bright); }
+        .nav-inner { display: flex; justify-content: center; align-items: stretch; max-width: 1100px; margin: 0 auto; flex-wrap: wrap; }
         .nav button {
             position: relative; display: flex; align-items: center; gap: 7px;
             padding: 14px 20px;
@@ -501,8 +469,7 @@
         @media (max-width: 768px) { .sim-layout { grid-template-columns: 1fr; } }
 
         @media (max-width: 768px) {
-            .nav-inner { flex-wrap: wrap; }
-            .nav-dropdown-menu { position: static; border: none; background: transparent; }
+            .nav { flex-direction: column; }
             .stat-grid { grid-template-columns: 1fr; }
             .chart-grid { grid-template-columns: 1fr; }
             .header h1 { font-size: 1.8rem; }
@@ -668,17 +635,12 @@
                 <button onclick="showPage('home', event)" class="active">🏠 Home</button>
                 <button onclick="showPage('statboard', event)">📊 Statboard</button>
                 <button onclick="showPage('activity', event)">🔥 Activity</button>
+                <button onclick="showPage('charts', event)">📈 Charts</button>
+                <button onclick="showPage('stories', event)">📖 Stories</button>
                 <button onclick="showPage('events', event)">🎉 Events</button>
                 <button onclick="showPage('medals', event)">🎖️ Medals of Honor</button>
+                <button onclick="showPage('simulator', event)">⭐ Simulator</button>
                 <button onclick="showPage('armory', event)">⚔️ Armory</button>
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn" id="moreBtn">More</button>
-                    <div class="nav-dropdown-menu" id="moreMenu">
-                        <button onclick="showPage('charts', event)">📈 Charts</button>
-                        <button onclick="showPage('stories', event)">📖 Stories</button>
-                        <button onclick="showPage('simulator', event)">⭐ Simulator</button>
-                    </div>
-                </div>
             </div>
         </nav>
     </header>
@@ -3075,22 +3037,11 @@
             }
         });
 
-        const morePages = ['charts','stories','simulator'];
         function showPage(pageId, event) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.nav-dropdown-menu button').forEach(b => b.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             if (event && event.target) event.target.classList.add('active');
-            // Handle "More" dropdown active indicator
-            const moreBtn = document.getElementById('moreBtn');
-            if (moreBtn) {
-                if (morePages.includes(pageId)) {
-                    moreBtn.classList.add('has-active');
-                } else {
-                    moreBtn.classList.remove('has-active');
-                }
-            }
             if (pageId === 'charts') setTimeout(initCharts, 100);
         }
 
