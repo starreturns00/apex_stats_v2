@@ -186,14 +186,14 @@
             cursor: pointer; transition: color 0.2s; white-space: nowrap;
         }
         .nav button:hover { color: var(--text); }
-        .nav button:not(.nav-dropdown-btn).active { color: var(--text); }
-        .nav button:not(.nav-dropdown-btn).active::after {
+        .nav button.active { color: var(--text); }
+        .nav button.active::after {
             content: ''; position: absolute;
             bottom: 0; left: 0; right: 0; height: 2px;
             background: var(--blood-bright);
             box-shadow: 0 0 8px var(--blood-bright);
         }
-        .nav button:not(.nav-dropdown-btn).active::before {
+        .nav button.active::before {
             content: ''; position: absolute;
             top: 6px; left: 6px; width: 8px; height: 8px;
             border-top: 1px solid var(--blood);
@@ -501,7 +501,6 @@
 
         @media (max-width: 768px) {
             .nav-inner { flex-wrap: wrap; }
-            .nav-dropdown-menu { position: static; border: none; background: transparent; }
             .stat-grid { grid-template-columns: 1fr; }
             .chart-grid { grid-template-columns: 1fr; }
             .header h1 { font-size: 1.8rem; }
@@ -3087,7 +3086,7 @@
         });
         function showPage(pageId, event) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav button:not(.nav-dropdown-btn)').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.nav-dropdown-menu button').forEach(b => b.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             if (event && event.target) event.target.classList.add('active');
