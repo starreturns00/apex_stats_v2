@@ -165,8 +165,6 @@
             background: #0f0f0f; border: 1px solid rgba(192,57,43,0.3);
             border-top: 2px solid var(--blood-bright); min-width: 180px; z-index: 999;
         }
-        .nav-dropdown:focus-within .nav-dropdown-menu { display: block; }
-        .nav-dropdown:focus-within .nav-dropdown-btn { color: var(--text); }
         .nav-dropdown-menu button {
             display: flex; align-items: center; gap: 8px; width: 100%;
             padding: 11px 18px; font-family: 'Rajdhani', sans-serif; font-weight: 700;
@@ -186,14 +184,14 @@
             cursor: pointer; transition: color 0.2s; white-space: nowrap;
         }
         .nav button:hover { color: var(--text); }
-        .nav button.active { color: var(--text); }
-        .nav button.active::after {
+        .nav button:not(.nav-dropdown-btn).active { color: var(--text); }
+        .nav button:not(.nav-dropdown-btn).active::after {
             content: ''; position: absolute;
             bottom: 0; left: 0; right: 0; height: 2px;
             background: var(--blood-bright);
             box-shadow: 0 0 8px var(--blood-bright);
         }
-        .nav button.active::before {
+        .nav button:not(.nav-dropdown-btn).active::before {
             content: ''; position: absolute;
             top: 6px; left: 6px; width: 8px; height: 8px;
             border-top: 1px solid var(--blood);
@@ -3086,7 +3084,7 @@
         });
         function showPage(pageId, event) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.nav button:not(.nav-dropdown-btn)').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.nav-dropdown-menu button').forEach(b => b.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             if (event && event.target) event.target.classList.add('active');
