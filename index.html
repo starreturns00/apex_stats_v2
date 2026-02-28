@@ -671,11 +671,11 @@
                 <button onclick="showPage('medals', event)">🎖️ Medals of Honor</button>
                 <button onclick="showPage('armory', event)">⚔️ Armory</button>
                 <div class="nav-dropdown" id="moreDropdown">
-                    <button class="nav-dropdown-btn" id="moreBtn" tabindex="0">More ▾</button>
-                    <div class="nav-dropdown-menu" id="moreMenu">
-                        <button onclick="showPage('charts', event)">📈 Charts</button>
-                        <button onclick="showPage('stories', event)">📖 Stories</button>
-                        <button onclick="showPage('simulator', event)">⭐ Simulator</button>
+                    <button class="nav-dropdown-btn" id="moreBtn" onclick="var m=document.getElementById('moreMenu');m.style.display=m.style.display==='block'?'none':'block';event.stopPropagation();">More ▾</button>
+                    <div class="nav-dropdown-menu" id="moreMenu" style="display:none">
+                        <button onclick="document.getElementById('moreMenu').style.display='none';showPage('charts', event)">📈 Charts</button>
+                        <button onclick="document.getElementById('moreMenu').style.display='none';showPage('stories', event)">📖 Stories</button>
+                        <button onclick="document.getElementById('moreMenu').style.display='none';showPage('simulator', event)">⭐ Simulator</button>
                     </div>
                 </div>
             </div>
@@ -3078,6 +3078,13 @@
 
 
 
+        document.addEventListener('click', function(e) {
+            var m = document.getElementById('moreMenu');
+            var b = document.getElementById('moreBtn');
+            if (m && b && !b.contains(e.target) && !m.contains(e.target)) {
+                m.style.display = 'none';
+            }
+        });
         function showPage(pageId, event) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
