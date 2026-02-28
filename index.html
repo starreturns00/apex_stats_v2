@@ -186,14 +186,14 @@
             cursor: pointer; transition: color 0.2s; white-space: nowrap;
         }
         .nav button:hover { color: var(--text); }
-        .nav button.active { color: var(--text); }
-        .nav button.active::after {
+        .nav button:not(.nav-dropdown-btn).active { color: var(--text); }
+        .nav button:not(.nav-dropdown-btn).active::after {
             content: ''; position: absolute;
             bottom: 0; left: 0; right: 0; height: 2px;
             background: var(--blood-bright);
             box-shadow: 0 0 8px var(--blood-bright);
         }
-        .nav button.active::before {
+        .nav button:not(.nav-dropdown-btn).active::before {
             content: ''; position: absolute;
             top: 6px; left: 6px; width: 8px; height: 8px;
             border-top: 1px solid var(--blood);
