@@ -3385,14 +3385,20 @@
                 if (!json.values) { armoryError(); return; }
                 let sec = null;
                 for (const row of json.values) {
+                    // Check any cell in the row for section markers
+                    const rowStr = row.join('|').toLowerCase();
                     const c0 = (row[0]||'').toString().trim().toLowerCase();
-                    if (c0==='weapon')  { sec='weapons';  continue; }
-                    if (c0==='armor')   { sec='armor';    continue; }
-                    if (c0==='implant') { sec='implants'; continue; }
+                    const c1 = (row[1]||'').toString().trim().toLowerCase();
+                    const isWeaponHeader  = c0.includes('weapon')  || c1.includes('weapon');
+                    const isArmorHeader   = c0.includes('armor')   || c1.includes('armor');
+                    const isImplantHeader = c0.includes('implant') || c1.includes('implant');
+                    if (isWeaponHeader && !c1.includes('name'))  { sec='weapons';  continue; }
+                    if (isArmorHeader  && !c1.includes('name'))  { sec='armor';    continue; }
+                    if (isImplantHeader && !c1.includes('name')) { sec='implants'; continue; }
                     if (!sec) continue;
                     const nm = (row[ACOL.name]||'').toString().trim();
                     const st = (row[ACOL.status]||'').toString().trim().toLowerCase();
-                    if (!nm || !st || nm.toLowerCase()==='weapon name' || nm.toLowerCase()==='armor name' || nm.toLowerCase()==='implant name' || nm.toLowerCase()==='column 3') continue;
+                    if (!nm || !st || nm.toLowerCase().includes('name') || nm.toLowerCase()==='column 3') continue;
                     armoryData[sec].push({
                         img:       (row[ACOL.img]||'').toString().trim(),
                         name:      nm,
