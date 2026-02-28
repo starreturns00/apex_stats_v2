@@ -145,36 +145,7 @@
             border-top-color: rgba(192,57,43,0.2);
             border-bottom-color: rgba(192,57,43,0.2);
         }
-        .nav-inner { display: flex; justify-content: center; align-items: stretch; max-width: 1100px; margin: 0 auto; flex-wrap: nowrap; }
-        .nav-dropdown { position: relative; display: flex; align-items: stretch; }
-        .nav-dropdown-btn {
-            position: relative; display: flex; align-items: center; gap: 7px;
-            padding: 14px 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700;
-            font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;
-            color: var(--muted); background: none; border: none;
-            cursor: pointer; transition: color 0.2s; white-space: nowrap;
-        }
-        .nav-dropdown-btn:hover { color: var(--text); }
-        .nav-dropdown-btn.has-active { color: var(--text); }
-        .nav-dropdown-btn.has-active::before {
-            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-            background: var(--blood-bright); box-shadow: 0 0 8px var(--blood-bright);
-        }
-        .nav-dropdown-menu {
-            display: none; position: absolute; top: 100%; right: 0;
-            background: #0f0f0f; border: 1px solid rgba(192,57,43,0.3);
-            border-top: 2px solid var(--blood-bright); min-width: 180px; z-index: 999;
-        }
-        .nav-dropdown-menu button {
-            display: flex; align-items: center; gap: 8px; width: 100%;
-            padding: 11px 18px; font-family: 'Rajdhani', sans-serif; font-weight: 700;
-            font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
-            color: var(--muted); background: none; border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            cursor: pointer; transition: all 0.15s; text-align: left; white-space: nowrap;
-        }
-        .nav-dropdown-menu button:hover { color: var(--text); background: rgba(192,57,43,0.08); padding-left: 24px; }
-        .nav-dropdown-menu button.active { color: var(--blood-bright); }
+        .nav-inner { display: flex; justify-content: center; align-items: stretch; max-width: 1100px; margin: 0 auto; flex-wrap: wrap; }
         .nav button {
             position: relative; display: flex; align-items: center; gap: 7px;
             padding: 14px 20px;
@@ -184,19 +155,60 @@
             cursor: pointer; transition: color 0.2s; white-space: nowrap;
         }
         .nav button:hover { color: var(--text); }
-        .nav button:not(.nav-dropdown-btn).active { color: var(--text); }
-        .nav button:not(.nav-dropdown-btn).active::after {
+        .nav button.active { color: var(--text); }
+        .nav button.active::after {
             content: ''; position: absolute;
             bottom: 0; left: 0; right: 0; height: 2px;
             background: var(--blood-bright);
             box-shadow: 0 0 8px var(--blood-bright);
         }
-        .nav button:not(.nav-dropdown-btn).active::before {
+        .nav button.active::before {
             content: ''; position: absolute;
             top: 6px; left: 6px; width: 8px; height: 8px;
             border-top: 1px solid var(--blood);
             border-left: 1px solid var(--blood);
         }
+
+        /* ── DROPDOWN ── */
+        .dropdown { position: relative; display: flex; }
+        .dropdown-content {
+            display: none; position: absolute; top: 100%; right: 0;
+            background: rgba(0,0,0,0.9); min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+            z-index: 1000; border: 1px solid var(--border);
+            border-radius: 0 0 8px 8px; overflow: hidden;
+            flex-direction: column;
+            backdrop-filter: blur(4px);
+        }
+        body.light-mode .dropdown-content {
+            background: rgba(255,255,255,0.95);
+        }
+        .dropdown:hover .dropdown-content { display: flex; }
+        .dropdown-content button {
+            width: 100%; text-align: left; padding: 14px 20px;
+            border-bottom: 1px solid var(--border2); justify-content: flex-start;
+        }
+        .dropdown-content button:last-child { border-bottom: none; }
+        .dropdown-content button.active::after, .dropdown-content button.active::before { display: none; }
+        .dropdown-content button.active { 
+            background: var(--bg-hover); 
+            color: var(--blood-bright); 
+            border-left: 3px solid var(--blood-bright); 
+        }
+        .dropbtn.active-parent { color: var(--text); }
+        .dropbtn.active-parent::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; right: 0; height: 2px;
+            background: var(--blood-bright);
+            box-shadow: 0 0 8px var(--blood-bright);
+        }
+        .dropbtn.active-parent::before {
+            content: ''; position: absolute;
+            top: 6px; left: 6px; width: 8px; height: 8px;
+            border-top: 1px solid var(--blood);
+            border-left: 1px solid var(--blood);
+        }
+
         .container { max-width: 1400px; margin: 2rem auto; padding: 0 2rem; }
         .page { display: none; animation: fadeIn 0.3s; }
         .page.active { display: block; }
@@ -498,7 +510,7 @@
         @media (max-width: 768px) { .sim-layout { grid-template-columns: 1fr; } }
 
         @media (max-width: 768px) {
-            .nav-inner { flex-wrap: wrap; }
+            .nav { flex-direction: column; }
             .stat-grid { grid-template-columns: 1fr; }
             .chart-grid { grid-template-columns: 1fr; }
             .header h1 { font-size: 1.8rem; }
@@ -665,14 +677,15 @@
                 <button onclick="showPage('statboard', event)">📊 Statboard</button>
                 <button onclick="showPage('activity', event)">🔥 Activity</button>
                 <button onclick="showPage('events', event)">🎉 Events</button>
-                <button onclick="showPage('medals', event)">🎖️ Medals of Honor</button>
                 <button onclick="showPage('armory', event)">⚔️ Armory</button>
-                <div class="nav-dropdown" id="moreDropdown">
-                    <button class="nav-dropdown-btn" id="moreBtn" onclick="var m=document.getElementById('moreMenu');m.style.display=m.style.display==='block'?'none':'block';event.stopPropagation();">More ▾</button>
-                    <div class="nav-dropdown-menu" id="moreMenu" style="display:none">
-                        <button onclick="document.getElementById('moreMenu').style.display='none';showPage('charts', event)">📈 Charts</button>
-                        <button onclick="document.getElementById('moreMenu').style.display='none';showPage('stories', event)">📖 Stories</button>
-                        <button onclick="document.getElementById('moreMenu').style.display='none';showPage('simulator', event)">⭐ Simulator</button>
+                
+                <div class="dropdown">
+                    <button class="dropbtn" id="moreBtn" onclick="event.preventDefault()">🔽 More</button>
+                    <div class="dropdown-content">
+                        <button onclick="showPage('stories', event)">📖 Stories</button>
+                        <button onclick="showPage('charts', event)">📈 Charts</button>
+                        <button onclick="showPage('simulator', event)">⭐ Simulator</button>
+                        <button onclick="showPage('medals', event)">🎖️ Medals of Honor</button>
                     </div>
                 </div>
             </div>
@@ -680,7 +693,6 @@
     </header>
     <div class="container">
 
-        <!-- HOME -->
         <div id="home" class="page active">
             <div class="stat-grid">
                 <div class="stat-card">
@@ -733,7 +745,6 @@
             </div>
         </div>
 
-        <!-- STATBOARD -->
         <div id="statboard" class="page">
             <div class="section">
                 <h2>📊 Leaderboard - 2026-GW09</h2>
@@ -1728,7 +1739,6 @@
             </div>
         </div>
 
-        <!-- ACTIVITY -->
         <div id="activity" class="page">
             <div class="stat-grid">
                 <div class="stat-card">
@@ -2052,7 +2062,6 @@
             </div>
         </div>
 
-        <!-- CHARTS -->
         <div id="charts" class="page">
             <div class="section">
                 <h2>📈 SP Over Time</h2>
@@ -2096,7 +2105,6 @@
             </div>
         </div>
 
-        <!-- STORIES -->
         <div id="stories" class="page">
             <div class="section">
                 <h2>📖 Player Stories</h2>
@@ -2126,7 +2134,6 @@
             </div>
         </div>
 
-        <!-- EVENTS -->
         <div id="events" class="page">
             <div class="stat-grid">
                 <div class="stat-card">
@@ -2393,7 +2400,6 @@
             </div>
         </div>
 
-        <!-- MEDALS OF HONOR -->
         <div id="medals" class="page">
             <div class="section">
                 <h2>🎖️ Medals of Honor</h2>
@@ -2749,7 +2755,6 @@
             </div>
         </div>
 
-        <!-- SIMULATOR -->
         <div id="simulator" class="page">
             <div class="section">
                 <h2>⭐ SP Simulator</h2>
@@ -2871,7 +2876,6 @@
             </div>
         </div>
 
-        <!-- ARMORY -->
         <div id="armory" class="page">
             <style>
                 .arm-tab { background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 28px;cursor:pointer;transition:all 0.2s; }
@@ -3053,7 +3057,7 @@
             </div>
         </div>
     </div>
-    <div class="footer">Generated on February 28, 2026 • A P E X Clan</div>
+    <div class="footer">Generated on March 01, 2026 • A P E X Clan</div>
 
     <script>
         const chartData = {"all_players_sp": {"StarReturns": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [168.3, 172.7, 181.6, 189.0, 278.2, 281.8, 288.6]}, "corpsekill118": {"weeks": ["2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [114.3, 114.3, 122.6, 159.0, 174.5]}, "Baconkillszombies": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [58.2, 68.4, 79.3, 82.0, 100.4, 142.6, 155.4]}, "LiLRuso": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [118.3, 120.8, 122.5, 122.5, 126.4, 135.1, 136.9]}, "cathealer1": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [125.8, 125.8, 125.8, 125.8, 125.9, 125.9, 125.9]}, "sildurianRep": {"weeks": ["2026-GW07", "2026-GW08", "2026-GW09"], "sp": [71.4, 75.0, 87.6]}, "yertap": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [77.6, 77.6, 77.6, 77.6, 81.2, 83.5, 83.5]}, "Dibbs23": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [77.5, 77.5, 77.5, 77.5, 77.5, 77.5, 77.5]}, "shadowkirasa": {"weeks": ["2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [22.6, 24.1, 35.0, 36.7, 76.4]}, "yourmom24": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [75.1, 75.1, 75.1, 75.4, 75.4, 75.4]}, "LxnxWolf": {"weeks": ["2026-GW07", "2026-GW08", "2026-GW09"], "sp": [25.9, 46.9, 74.4]}, "marsbar012": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [66.6, 68.6, 70.6, 70.9, 72.2, 73.9, 73.9]}, "ICorajeI": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [70.0, 70.0, 70.0, 70.0, 71.6, 72.0, 72.0]}, "RJRock": {"weeks": ["2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [60.8, 61.1, 64.4, 67.5, 67.9]}, "jfmb": {"weeks": ["2026-GW09"], "sp": [59.4]}, "spongeguy2256": {"weeks": ["2026-GW08", "2026-GW09"], "sp": [47.5, 56.5]}, "lukscorpionbr": {"weeks": ["2026-GW08", "2026-GW09"], "sp": [31.3, 54.6]}, "Jave": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [42.1, 42.1, 42.2, 42.2, 43.5, 43.5, 43.5]}, "1776isback": {"weeks": ["2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "sp": [13.0, 13.0, 13.0, 13.0]}}, "carot": {"weeks": ["2026-GW03", "2026-GW04", "2026-GW05", "2026-GW06", "2026-GW07", "2026-GW08", "2026-GW09"], "activity_rate": [100.0, 28.6, 39.1, 60.0, 88.2, 68.4, 60.0]}, "spdr": {"ranks": ["Alpha Prowler", "Prowler", "Alpha King", "Alpha Primal", "Stalker"], "counts": [1, 3, 1, 9, 5]}, "csbs": {"current": [{"user": "StarReturns", "value": 7}, {"user": "corpsekill118", "value": 5}, {"user": "Baconkillszombies", "value": 7}, {"user": "LiLRuso", "value": 3}, {"user": "cathealer1", "value": 0}, {"user": "sildurianRep", "value": 3}, {"user": "yertap", "value": 0}, {"user": "Dibbs23", "value": 0}, {"user": "shadowkirasa", "value": 5}, {"user": "yourmom24", "value": 0}, {"user": "LxnxWolf", "value": 3}, {"user": "marsbar012", "value": 0}, {"user": "ICorajeI", "value": 0}, {"user": "RJRock", "value": 5}, {"user": "jfmb", "value": 1}, {"user": "spongeguy2256", "value": 2}, {"user": "lukscorpionbr", "value": 2}, {"user": "Jave", "value": 1}, {"user": "1776isback", "value": 0}], "best": [{"user": "StarReturns", "value": 7}, {"user": "corpsekill118", "value": 5}, {"user": "Baconkillszombies", "value": 7}, {"user": "LiLRuso", "value": 3}, {"user": "cathealer1", "value": 2}, {"user": "sildurianRep", "value": 3}, {"user": "yertap", "value": 2}, {"user": "Dibbs23", "value": 1}, {"user": "shadowkirasa", "value": 5}, {"user": "yourmom24", "value": 1}, {"user": "LxnxWolf", "value": 3}, {"user": "marsbar012", "value": 6}, {"user": "ICorajeI", "value": 2}, {"user": "RJRock", "value": 5}, {"user": "jfmb", "value": 1}, {"user": "spongeguy2256", "value": 2}, {"user": "lukscorpionbr", "value": 2}, {"user": "Jave", "value": 1}, {"user": "1776isback", "value": 1}]}};
@@ -3071,30 +3075,29 @@
             }
         });
 
-        const _morePages = ['charts','stories','simulator'];
-
-
-
-        document.addEventListener('click', function(e) {
-            var m = document.getElementById('moreMenu');
-            var b = document.getElementById('moreBtn');
-            if (m && b && !b.contains(e.target) && !m.contains(e.target)) {
-                m.style.display = 'none';
-            }
-        });
         function showPage(pageId, event) {
+            // Remove active state from pages
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav button:not(.nav-dropdown-btn)').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.nav-dropdown-menu button').forEach(b => b.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            if (event && event.target) event.target.classList.add('active');
-            const dd = document.getElementById('moreDropdown');
-            if (dd) dd.classList.remove('open');
+            // Remove active state from all nav buttons
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            // Remove active state from More button specifically
             const moreBtn = document.getElementById('moreBtn');
-            if (moreBtn) {
-                if (_morePages.includes(pageId)) moreBtn.classList.add('has-active');
-                else moreBtn.classList.remove('has-active');
+            if(moreBtn) moreBtn.classList.remove('active-parent');
+            
+            // Activate the selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Handle active button state
+            if (event && event.target) {
+                event.target.classList.add('active');
+                
+                // If the clicked button is inside the dropdown, keep the "More" button highlighted
+                if (event.target.closest('.dropdown-content') && moreBtn) {
+                    moreBtn.classList.add('active-parent');
+                }
             }
+            
+            // Trigger charts rendering if applicable
             if (pageId === 'charts') setTimeout(initCharts, 100);
         }
 
@@ -3346,7 +3349,7 @@
                 el.textContent = d > 0.0001 ? '+' + d.toFixed(4) : (d < -0.0001 ? d.toFixed(4) : '');
                 el.style.color = d > 0 ? '#27ae60' : '#e74c3c';
             };
-            showDelta('simTsBaseDelta',  ts_base,  orig_ts);
+showDelta('simTsBaseDelta',  ts_base,  orig_ts);
             showDelta('simTpkBaseDelta', tpk_base, orig_tpk);
             showDelta('simTlBaseDelta',  tl_base,  orig_tl);
 
