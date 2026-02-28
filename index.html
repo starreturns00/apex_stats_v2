@@ -168,47 +168,6 @@
             border-top: 1px solid var(--blood);
             border-left: 1px solid var(--blood);
         }
-
-        /* ── DROPDOWN ── */
-        .dropdown { position: relative; display: flex; }
-        .dropdown-content {
-            display: none; position: absolute; top: 100%; right: 0;
-            background: rgba(0,0,0,0.9); min-width: 200px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-            z-index: 1000; border: 1px solid var(--border);
-            border-radius: 0 0 8px 8px; overflow: hidden;
-            flex-direction: column;
-            backdrop-filter: blur(4px);
-        }
-        body.light-mode .dropdown-content {
-            background: rgba(255,255,255,0.95);
-        }
-        .dropdown:hover .dropdown-content { display: flex; }
-        .dropdown-content button {
-            width: 100%; text-align: left; padding: 14px 20px;
-            border-bottom: 1px solid var(--border2); justify-content: flex-start;
-        }
-        .dropdown-content button:last-child { border-bottom: none; }
-        .dropdown-content button.active::after, .dropdown-content button.active::before { display: none; }
-        .dropdown-content button.active { 
-            background: var(--bg-hover); 
-            color: var(--blood-bright); 
-            border-left: 3px solid var(--blood-bright); 
-        }
-        .dropbtn.active-parent { color: var(--text); }
-        .dropbtn.active-parent::after {
-            content: ''; position: absolute;
-            bottom: 0; left: 0; right: 0; height: 2px;
-            background: var(--blood-bright);
-            box-shadow: 0 0 8px var(--blood-bright);
-        }
-        .dropbtn.active-parent::before {
-            content: ''; position: absolute;
-            top: 6px; left: 6px; width: 8px; height: 8px;
-            border-top: 1px solid var(--blood);
-            border-left: 1px solid var(--blood);
-        }
-
         .container { max-width: 1400px; margin: 2rem auto; padding: 0 2rem; }
         .page { display: none; animation: fadeIn 0.3s; }
         .page.active { display: block; }
@@ -676,23 +635,18 @@
                 <button onclick="showPage('home', event)" class="active">🏠 Home</button>
                 <button onclick="showPage('statboard', event)">📊 Statboard</button>
                 <button onclick="showPage('activity', event)">🔥 Activity</button>
+                <button onclick="showPage('charts', event)">📈 Charts</button>
+                <button onclick="showPage('stories', event)">📖 Stories</button>
                 <button onclick="showPage('events', event)">🎉 Events</button>
+                <button onclick="showPage('medals', event)">🎖️ Medals of Honor</button>
+                <button onclick="showPage('simulator', event)">⭐ Simulator</button>
                 <button onclick="showPage('armory', event)">⚔️ Armory</button>
-                
-                <div class="dropdown">
-                    <button class="dropbtn" id="moreBtn" onclick="event.preventDefault()">🔽 More</button>
-                    <div class="dropdown-content">
-                        <button onclick="showPage('stories', event)">📖 Stories</button>
-                        <button onclick="showPage('charts', event)">📈 Charts</button>
-                        <button onclick="showPage('simulator', event)">⭐ Simulator</button>
-                        <button onclick="showPage('medals', event)">🎖️ Medals of Honor</button>
-                    </div>
-                </div>
             </div>
         </nav>
     </header>
     <div class="container">
 
+        <!-- HOME -->
         <div id="home" class="page active">
             <div class="stat-grid">
                 <div class="stat-card">
@@ -745,6 +699,7 @@
             </div>
         </div>
 
+        <!-- STATBOARD -->
         <div id="statboard" class="page">
             <div class="section">
                 <h2>📊 Leaderboard - 2026-GW09</h2>
@@ -1739,6 +1694,7 @@
             </div>
         </div>
 
+        <!-- ACTIVITY -->
         <div id="activity" class="page">
             <div class="stat-grid">
                 <div class="stat-card">
@@ -2062,6 +2018,7 @@
             </div>
         </div>
 
+        <!-- CHARTS -->
         <div id="charts" class="page">
             <div class="section">
                 <h2>📈 SP Over Time</h2>
@@ -2105,6 +2062,7 @@
             </div>
         </div>
 
+        <!-- STORIES -->
         <div id="stories" class="page">
             <div class="section">
                 <h2>📖 Player Stories</h2>
@@ -2134,6 +2092,7 @@
             </div>
         </div>
 
+        <!-- EVENTS -->
         <div id="events" class="page">
             <div class="stat-grid">
                 <div class="stat-card">
@@ -2400,6 +2359,7 @@
             </div>
         </div>
 
+        <!-- MEDALS OF HONOR -->
         <div id="medals" class="page">
             <div class="section">
                 <h2>🎖️ Medals of Honor</h2>
@@ -2755,6 +2715,7 @@
             </div>
         </div>
 
+        <!-- SIMULATOR -->
         <div id="simulator" class="page">
             <div class="section">
                 <h2>⭐ SP Simulator</h2>
@@ -2876,6 +2837,7 @@
             </div>
         </div>
 
+        <!-- ARMORY -->
         <div id="armory" class="page">
             <style>
                 .arm-tab { background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 28px;cursor:pointer;transition:all 0.2s; }
@@ -3076,28 +3038,10 @@
         });
 
         function showPage(pageId, event) {
-            // Remove active state from pages
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // Remove active state from all nav buttons
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-            // Remove active state from More button specifically
-            const moreBtn = document.getElementById('moreBtn');
-            if(moreBtn) moreBtn.classList.remove('active-parent');
-            
-            // Activate the selected page
             document.getElementById(pageId).classList.add('active');
-            
-            // Handle active button state
-            if (event && event.target) {
-                event.target.classList.add('active');
-                
-                // If the clicked button is inside the dropdown, keep the "More" button highlighted
-                if (event.target.closest('.dropdown-content') && moreBtn) {
-                    moreBtn.classList.add('active-parent');
-                }
-            }
-            
-            // Trigger charts rendering if applicable
+            if (event && event.target) event.target.classList.add('active');
             if (pageId === 'charts') setTimeout(initCharts, 100);
         }
 
@@ -3349,7 +3293,7 @@
                 el.textContent = d > 0.0001 ? '+' + d.toFixed(4) : (d < -0.0001 ? d.toFixed(4) : '');
                 el.style.color = d > 0 ? '#27ae60' : '#e74c3c';
             };
-showDelta('simTsBaseDelta',  ts_base,  orig_ts);
+            showDelta('simTsBaseDelta',  ts_base,  orig_ts);
             showDelta('simTpkBaseDelta', tpk_base, orig_tpk);
             showDelta('simTlBaseDelta',  tl_base,  orig_tl);
 
