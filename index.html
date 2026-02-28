@@ -154,7 +154,6 @@
             color: var(--muted); background: none; border: none;
             cursor: pointer; transition: color 0.2s; white-space: nowrap;
         }
-        .nav-dropdown-btn:after { content: ' be'; font-size: 10px; opacity: 0.6; margin-left: 2px; }
         .nav-dropdown-btn:hover { color: var(--text); }
         .nav-dropdown-btn.has-active { color: var(--text); }
         .nav-dropdown-btn.has-active::before {
@@ -671,8 +670,8 @@
                 <button onclick="showPage('medals', event)">🎖️ Medals of Honor</button>
                 <button onclick="showPage('armory', event)">⚔️ Armory</button>
                 <div class="nav-dropdown" id="moreDropdown">
-                    <button class="nav-dropdown-btn" id="moreBtn" onclick="toggleMore(event)">More</button>
-                    <div class="nav-dropdown-menu">
+                    <button class="nav-dropdown-btn" id="moreBtn" onclick="toggleMore(event)">More ▾</button>
+                    <div class="nav-dropdown-menu" id="moreMenu">
                         <button onclick="showPage('charts', event)">📈 Charts</button>
                         <button onclick="showPage('stories', event)">📖 Stories</button>
                         <button onclick="showPage('simulator', event)">⭐ Simulator</button>
@@ -3080,9 +3079,10 @@
             e.stopPropagation();
             document.getElementById('moreDropdown').classList.toggle('open');
         }
-        document.addEventListener('click', function() {
+
+        document.addEventListener('click', function(e) {
             const dd = document.getElementById('moreDropdown');
-            if (dd) dd.classList.remove('open');
+            if (dd && !dd.contains(e.target)) dd.classList.remove('open');
         });
 
         function showPage(pageId, event) {
@@ -3091,10 +3091,8 @@
             document.querySelectorAll('.nav-dropdown-menu button').forEach(b => b.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             if (event && event.target) event.target.classList.add('active');
-            // close dropdown after selection
             const dd = document.getElementById('moreDropdown');
             if (dd) dd.classList.remove('open');
-            // highlight More button if a dropdown page is active
             const moreBtn = document.getElementById('moreBtn');
             if (moreBtn) {
                 if (_morePages.includes(pageId)) moreBtn.classList.add('has-active');
