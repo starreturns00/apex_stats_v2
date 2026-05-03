@@ -563,21 +563,21 @@ def _best_tier_and_count(username, snap_col, thresholds):
     """
     TS / TPK / TL detection:
     - Finds the HIGHEST tier whose threshold the player crossed in ANY week
-    - Counts how many weeks they crossed the LOWEST (Bronze) threshold
     - thresholds: [(tier, threshold, cash_reward), ...] sorted Bronze→Platinum
     """
     snaps = _snaps_by_user.get(username, [])
-    best_tier = None
     for tier, thresh, _cash in reversed(thresholds):  # check highest tier first
         if any(safe_int(r[snap_col]) >= thresh for r in snaps):
-            best_tier = tier
-            break
-    if best_tier is None:
-        return None, 0
-    # Count weeks where player hit at least the lowest (Bronze) threshold
-    bronze_thresh = thresholds[0][1]
-    count = sum(1 for r in snaps if safe_int(r[snap_col]) >= bronze_thresh)
-    return best_tier, count
+            return tier, 0  # count computed per-tier at display time
+    return None, 0
+
+def _count_for_specific_tier(username, snap_col, tier, thresholds):
+    """Count how many weeks a player crossed a specific tier's threshold."""
+    snaps = _snaps_by_user.get(username, [])
+    for t, thresh, _cash in thresholds:
+        if t == tier:
+            return sum(1 for r in snaps if safe_int(r[snap_col]) >= thresh)
+    return 0
 
 def _count_for_tier(username, snap_col, threshold, thresholds_list=None):
     """Count how many weeks a player crossed a specific threshold."""
@@ -1035,11 +1035,17 @@ for cat in _cat_order:
             earned_tier = None
             val = None
             if cat == 'ts':
-                earned_tier, val = m.get('ts_tier'), m.get('ts_count', 1)
+                earned_tier = m.get('ts_tier')
+                if earned_tier and _TIER_RANK.get(earned_tier, -1) >= this_rank:
+                    val = _count_for_specific_tier(u, 'weekly_ts', tier, _medal_thresholds['ts'])
             elif cat == 'tpk':
-                earned_tier, val = m.get('tpk_tier'), m.get('tpk_count', 1)
+                earned_tier = m.get('tpk_tier')
+                if earned_tier and _TIER_RANK.get(earned_tier, -1) >= this_rank:
+                    val = _count_for_specific_tier(u, 'weekly_tpk', tier, _medal_thresholds['tpk'])
             elif cat == 'tl':
-                earned_tier, val = m.get('tl_tier'), m.get('tl_count', 1)
+                earned_tier = m.get('tl_tier')
+                if earned_tier and _TIER_RANK.get(earned_tier, -1) >= this_rank:
+                    val = _count_for_specific_tier(u, 'weekly_loots', tier, _medal_thresholds['tl'])
             elif cat == 'streak':
                 earned_tier, val = m.get('streak_tier'), m.get('streak_val', 0)
             elif cat == 'global':
