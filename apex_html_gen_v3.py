@@ -563,15 +563,21 @@ def _best_tier_and_count(username, snap_col, thresholds):
     """
     TS / TPK / TL detection:
     - Finds the HIGHEST tier whose threshold the player crossed in ANY week
-    - Also counts how many weeks they crossed THAT tier's threshold
+    - Counts how many weeks they crossed the LOWEST (Bronze) threshold
     - thresholds: [(tier, threshold, cash_reward), ...] sorted Bronze→Platinum
     """
     snaps = _snaps_by_user.get(username, [])
+    best_tier = None
     for tier, thresh, _cash in reversed(thresholds):  # check highest tier first
-        count = sum(1 for r in snaps if safe_int(r[snap_col]) >= thresh)
-        if count > 0:
-            return tier, count
-    return None, 0
+        if any(safe_int(r[snap_col]) >= thresh for r in snaps):
+            best_tier = tier
+            break
+    if best_tier is None:
+        return None, 0
+    # Count weeks where player hit at least the lowest (Bronze) threshold
+    bronze_thresh = thresholds[0][1]
+    count = sum(1 for r in snaps if safe_int(r[snap_col]) >= bronze_thresh)
+    return best_tier, count
 
 def _count_for_tier(username, snap_col, threshold, thresholds_list=None):
     """Count how many weeks a player crossed a specific threshold."""
@@ -628,19 +634,24 @@ def compute_medals(username):
     result['global_best'] = global_best
     if 'global' in _medal_thresholds:
         result['global_tier'] = _best_tier_simple(global_best, _medal_thresholds['global'], lower_is_better=True)
-        # Count total qualifying rank entries across all three rank columns, all weeks
+        # Count total weeks where player had a qualifying global rank (at least Bronze threshold)
+        bronze_threshold = _medal_thresholds['global'][0][1]  # lowest threshold = Bronze
         rank_rows = [r for r in _all_rank_rows if r['username'] == username]
         global_count = 0
         for r in rank_rows:
+            row_qualifies = False
             for col in ('weekly_ts_rank', 'weekly_tpk_rank', 'weekly_tl_rank'):
                 val = r[col]
                 if val:
                     try:
                         n = int(str(val).replace('#', '').strip())
-                        if n > 0:
-                            global_count += 1
+                        if n > 0 and n <= bronze_threshold:
+                            row_qualifies = True
+                            break
                     except:
                         pass
+            if row_qualifies:
+                global_count += 1
         result['global_count'] = global_count
 
     # Event wins — total count, no tiers
